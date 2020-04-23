@@ -13,6 +13,8 @@ class MoviesController < ApplicationController
   def index
 
     if params[:ratings].nil?
+        session[:sort_by] = params[:sort_by]
+    else
         params[:ratings] = {'G'=>'1', 'PG'=>'1', 'PG-13'=>'1', 'R'=>'1'}
     end 
     
