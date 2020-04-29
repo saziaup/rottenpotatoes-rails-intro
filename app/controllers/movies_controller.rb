@@ -5,17 +5,16 @@ class MoviesController < ApplicationController
   end
 
   def show
-    id = params[:id] # retrieve movie ID from URI route
-    @movie = Movie.find(id) # look up movie by unique ID
-    # will render app/views/movies/show.<extension> by default
+    id = params[:id] 
+    @movie = Movie.find(id) 
   end
 
   def index
 
     if params[:ratings].nil?
-        session[:sort_by] = params[:sort_by]
-    else
         params[:ratings] = {'G'=>'1', 'PG'=>'1', 'PG-13'=>'1', 'R'=>'1'}
+    else
+        session[:sort_by] = params{:sort_by}
     end 
     
     @checked_boxes = params[:ratings].keys
