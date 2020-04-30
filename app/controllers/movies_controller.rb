@@ -10,6 +10,10 @@ class MoviesController < ApplicationController
   end
 
   def index
+    if params[:ratings].nil? and params[:commit] 
+        session.delete(:checks)
+    end
+    
     @sort = params[:sort] || session[:sort]
     @all_ratings = Movie.all_ratings
     @checks = params[:ratings] || session[:checks]
