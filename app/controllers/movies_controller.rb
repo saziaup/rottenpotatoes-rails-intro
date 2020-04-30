@@ -18,10 +18,11 @@ class MoviesController < ApplicationController
     session[:sort] = @sort
 
     if @checks.nil?
-        params[:ratings] = {'G'=>'1', 'PG'=>'1', 'PG-13'=>'1', 'R'=>'1'}
+        @movies = Movie.all
     else
-        @movies = Movie.where(rating: @checks).order(@sort)
-    end     
+        @movies = Movie.where(rating: @checks.keys)
+    end  
+    @movies = @movies.order(@sort) if @sort   
   end
 
   def new
