@@ -10,18 +10,18 @@ class MoviesController < ApplicationController
   end
 
   def index
+    @sort = params[:sort] || session[:sort]
+    @all_ratings = Movie.all_ratings
+    @checks = params[:ratings] || session[:checks]
 
-    if params[:ratings].nil?
+    session[:checks] = @checks
+    session[:sort] = @sort
+
+    if @checks.nil?
         params[:ratings] = {'G'=>'1', 'PG'=>'1', 'PG-13'=>'1', 'R'=>'1'}
     else
-        session[:sort_by] = params{:sort_by}
-    end 
-    
-    @checked_boxes = params[:ratings].keys
-    @sort = params[:sort]
-
-    @all_ratings = Movie.all_ratings
-    @movies = Movie.where(rating: @checked_boxes).order(@sort)
+        @movies = Movie.where(rating: @checks).order(@sort)
+    end     
   end
 
   def new
