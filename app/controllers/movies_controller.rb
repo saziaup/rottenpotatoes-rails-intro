@@ -16,7 +16,7 @@ class MoviesController < ApplicationController
 
     @sort = params[:sort] || session[:sort]
     @all_ratings = Movie.all_ratings
-    @checks = params[:ratings] || session[:checks]
+    @checks = params[:ratings] || session[:checks] || {'PG' => '1', 'G' => '1','R' => '1', 'PG-13' => '1'}
 
     session[:checks] = @checks
     session[:sort] = @sort
